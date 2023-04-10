@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Idea Generator</title>
+  <style>
+    :root {
+      --color-white: #f2f2f2;
+      --color-black: #333;
+      --color-gray: #666;
+      --color-green: #4CAF50;
+      --color-darkgreen: #3e8e41;
+      --color-yellow: #fafad2;
+      --color-lightred: #ffe6e6;
+      --font-family: Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-white);
+      font-family: var(--font-family);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      color: var(--color-black);
+      text-align: center;
+      margin-top: 50px;
+      font-size: 36px;
+    }
+
+    p {
+      color: var(--color-gray);
+      margin-bottom: 10px;
+      font-size: 18px;
+      margin-left: 20px;
+    }
+
+    select,
+    input[type="range"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+      margin-bottom: 20px;
+      margin-left: 20px;
+      width: 100%;
+      max-width: 300px;
+      background-color: var(--color-white);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background-color: var(--color-green);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-left: 20px;
+      transition: background-color 0.3s ease-in-out;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    button:hover {
+      background-color: var(--color-darkgreen);
+    }
+
+    #idea {
+      margin-top: 50px;
+      margin-left: 20px;
+    }
+
+    #idea-text {
+      font-size: 36px;
+      color: var(--color-black);
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    #idea-description {
+      font-size: 24px;
+      color: var(--color-gray);
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    @media only screen and (max-width: 768px) {
+      h1 {
+        font-size: 28px;
+        margin-top: 30px;
+      }
+
+      p {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+
+      select,
+      input[type="range"] {
+        margin-bottom: 10px;
+        max-width: 100%;
+      }
+
+      button {
+        margin-bottom: 20px;
+      }
+
+      #idea-text {
+        font-size: 28px;
+        margin-top: 10px;
+      }
+
+      #idea-description {
+        font-size: 20px;
+        margin-top: 5px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Idea Generator</h1>
+
+    <p>Select a category and hit the "Generate" button to get an idea for your next project:</p>
+    <select id="idea-category">
+      <option value="web-development">Web Development</option>
+      <option value="mobile-apps">Mobile Apps</option>
+      <option value="social-media">Social Media</option>
+      <option value="marketing">Marketing</option>
+      <option value="design">Design</option>
+      <option value="content-creation">Content Creation</option>
+      <option value="e-commerce">E-commerce</option>
+      <option value="games">Games</option>
+      <option value="artificial-intelligence">Artificial Intelligence </option>
+    </select>
+
+    <p>Choose the difficulty level:</p>
+    <input type="range" id="difficulty-level" min="1" max="10" value="5" step="1">
+    <span id="difficulty-value">5</span>
+
+    <button id="generate-button">Generate</button>
+
+    <div id="idea">
+      <h2 id="idea-text"></h2>
+      <p id="idea-description"></p>
+    </div>
+  </div>
+
+  <script>
+    const ideaCategories = {
+      "web-development": [
+  "Create a website that helps people learn to code",
+  "Develop a tool that automates website testing",
+  "Build a platform for online education",
+  "Create a website that connects freelancers with clients",
+  "Develop a plugin that enhances website performance",
+  "Build a web app for tracking personal finances",
+  "Create a social network for developers",
+  "Develop a web-based project management tool",
+  "Build a website for booking travel accommodations",
+  "Create a job board for remote workers",
+  "Develop a browser extension that blocks distracting websites",
+  "Build a website for organizing and managing book clubs",
+  "Create an online marketplace for local farmers and producers",
+  "Develop a website for creating and sharing cocktail recipes",
+  "Build a platform for creating and sharing customized workout plans",
+  "Create a website for organizing and sharing hiking trails",
+  "Develop a tool for analyzing and improving website accessibility",
+  "Build a web app for managing and tracking home energy usage",
+  "Create a website for finding and booking fitness classes",
+  "Develop a platform for creating and sharing educational escape rooms",
+  "Build a website for organizing and scheduling volunteer work",
+  "Create a platform for virtual interior design services",
+  "Develop a website for organizing and managing sports leagues",
+  "Build a platform for sharing and reviewing outdoor adventure activities",
+  "Create a website for booking appointments with service professionals"
+],
+
+      "mobile-apps": [
+  "Develop a mobile game that teaches coding concepts",
+  "Build an app that helps track and reduce screen time",
+  "Create a fitness app that adapts workouts based on user feedback",
+  "Develop a language learning app with speech recognition",
+  "Build an app that helps users plan meals and grocery shopping",
+  "Create a meditation app with customizable ambient sounds",
+  "Develop an app that connects volunteer opportunities with interested users",
+  "Build a social app for organizing local events",
+  "Create a mental health app with guided journaling exercises",
+  "Develop an app that generates random acts of kindness challenges",
+  "Build a mobile app for buying and selling second-hand items",
+  "Create a mobile app for booking home services",
+  "Develop a mobile app for managing personal documents",
+  "Build a language exchange app for practicing conversational skills",
+  "Create a mobile app for tracking and reducing food waste",
+  "Develop a mobile app for virtual wardrobe planning"
+],
+
+      "social-media": [
+  "Create a social media platform for pet owners",
+  "Develop a content-sharing platform for educators",
+  "Build a social network for artists to showcase their work",
+  "Create a social media app for sharing and reviewing local businesses",
+  "Develop a platform for political debate with verified sources",
+  "Build a social media platform for language learners",
+  "Create a social network for travelers to share photos and tips",
+  "Develop a social media app for organizing protests and rallies",
+  "Build a platform for connecting mentors and mentees across industries",
+  "Create a social network for book lovers to discuss and recommend books",
+  "Develop a social media platform for local community building",
+  "Build a social media platform for seniors to connect with younger generations",
+  "Create a social media platform for environmental activism",
+  "Develop a social media app for sharing and discovering music",
+  "Build a platform for organizing and promoting charity events"
+],
+
+      "marketing": [
+  "Develop a tool for analyzing social media engagement metrics",
+  "Build a platform for managing influencer marketing campaigns",
+  "Create a digital storefront for selling products on multiple marketplaces",
+  "Develop a content creation tool that generates blog posts based on keywords",
+  "Build an email marketing automation tool with A/B testing",
+  "Create a lead generation tool for sales teams",
+  "Develop a platform for creating and hosting webinars",
+  "Build a social media scheduling tool with automated posting",
+  "Create a tool for monitoring online brand reputation",
+  "Develop a retargeting campaign optimization tool",
+  "Build a platform for organizing and promoting local events",
+  "Create a marketplace for booking influencer collaborations",
+  "Develop a tool for optimizing website SEO",
+  "Build a platform for managing cross-channel advertising campaigns",
+  "Create a tool for generating social media ad creatives with AI-powered suggestions"
+],
+
+      "design": [
+  "Create a portfolio website builder with customizable templates",
+  "Develop a tool for generating UI designs from wireframes",
+  "Build a logo maker with AI-powered suggestions",
+  "Create a tool for prototyping voice-activated interfaces",
+  "Develop a platform for crowdsourcing design feedback",
+  "Build a 3D modeling and animation software for beginners",
+  "Create a design collaboration platform with version control",
+  "Develop a color palette generator for branding purposes",
+  "Build a plugin for adding animations to websites without coding",
+  "Create a font pairing tool with live previews",
+  "Develop a graphic design tool for creating social media posts",
+  "Build a platform for designing and printing custom business cards",
+  "Create a website builder with AI-generated website design suggestions",
+  "Develop a tool for generating product packaging designs",
+  "Build a design feedback and iteration platform for remote teams"
+],
+
+      "content-creation": [
+  "Develop a platform for creating and selling online courses",
+  "Build a tool for creating and distributing interactive ebooks",
+  "Create a platform for hosting virtual events and conferences",
+  "Develop a podcast hosting platform with monetization options",
+  "Build a tool for generating social media posts with customizable templates",
+  "Create a platform for sourcing freelance writers and editors",
+  "Develop a video editing tool with AI-generated captions and transcripts",
+  "Build a platform for organizing and archiving webinars",
+  "Create a tool for generating blog post outlines and titles",
+  "Develop a content collaboration platform for remote teams",
+  "Build a platform for creating and sharing animated explainer videos",
+  "Create a platform for selling digital products such as photography and artwork",
+  "Develop a tool for creating and sharing interactive infographics",
+  "Build a platform for hosting and promoting online workshops",
+  "Create a platform for creating and selling personalized gift boxes",
+  "Develop a tool for automating social media content curation"
+],
+
+      "e-commerce": [
+  "Create a marketplace for locally sourced products",
+  "Develop a tool for optimizing product listings on e-commerce platforms",
+  "Build a platform for selling custom clothing designs",
+  "Create an e-commerce platform with personalized skincare recommendations",
+  "Develop a subscription box service for eco-friendly household products",
+  "Build a peer-to-peer rental platform for luxury goods",
+  "Create a platform for buying and selling pre-owned designer fashion",
+  "Develop a tool for automating customer service responses on e-commerce sites",
+  "Build a mobile app for grocery delivery with personalized recommendations",
+  "Create an e-commerce platform for independent artists and makers",
+  "Develop a tool for generating product recommendations based on user behavior",
+  "Build a platform for buying and selling second-hand electronics",
+  "Create a subscription service for healthy meal kits",
+  "Develop a tool for creating and ordering custom gift baskets",
+  "Build a platform for renting high-end furniture",
+  "Create an online marketplace for vintage and rare collectibles"
+],
+
+      "games": [
+  "Develop a puzzle game with procedurally generated levels",
+  "Build a multiplayer online battle arena (MOBA) game",
+  "Create a virtual reality escape room experience",
+  "Develop a role-playing game (RPG) with branching storylines",
+  "Build a platformer game with user-generated content",
+  "Create a mobile game that teaches financial literacy skills",
+  "Develop a first-person shooter (FPS) game with parkour mechanics",
+  "Build a side-scrolling action game with time-traveling elements",
+  "Create a multiplayer trivia game with live hosts",
+  "Develop a survival game set in a post-apocalyptic world",
+  "Build a simulation game for managing a restaurant or cafe",
+  "Create a mobile game for learning and practicing mindfulness techniques",
+  "Develop a sports game with realistic motion physics",
+  "Build a racing game with customizable vehicles",
+  "Create a strategy game set in a historical period",
+  "Develop a game with augmented reality elements"
+],
+
+      "artificial-intelligence": [
+  "Build a chatbot for customer service and support",
+  "Create a natural language processing (NLP) tool for sentiment analysis",
+  "Develop a machine learning algorithm for predictive maintenance",
+  "Build a recommendation engine for personalized product suggestions",
+  "Create an image recognition tool for identifying objects in photos",
+  "Develop a speech recognition tool for transcribing audio files",
+  "Build a facial recognition system for security purposes",
+  "Create a chatbot for mental health counseling",
+  "Develop a tool for analyzing and diagnosing medical images",
+  "Build a voice-activated personal assistant with scheduling capabilities",
+  "Create an AI-powered personal shopping assistant",
+  "Develop a tool for automating data entry tasks",
+  "Build a platform for automating customer service through chatbots",
+  "Create a digital assistant for managing personal finances",
+  "Develop a tool for predicting equipment failures in industrial settings"
+],
+    };
+    const generateButton = document.querySelector("#generate-button");
+    const ideaCategorySelect = document.querySelector("#idea-category");
+    const difficultyLevelInput = document.querySelector("#difficulty-level");
+    const difficultyValueSpan = document.querySelector("#difficulty-value");
+    const ideaText = document.querySelector("#idea-text");
+    const ideaDescription = document.querySelector("#idea-description");
+
+    generateButton.addEventListener("click", () => {
+      const category = ideaCategorySelect.value;
+      const difficulty = difficultyLevelInput.value;
+      const ideas = ideaCategories[category];
+      const randomIndex = Math.floor(Math.random() * ideas.length);
+      const idea = ideas[randomIndex];
+
+      let difficultyMessage = "";
+      if (difficulty <= 3) {
+        difficultyMessage = "This idea is relatively easy to execute.";
+      } else if (difficulty <= 7) {
+        difficultyMessage = "This idea may require some effort and time to execute.";
+      } else {
+        difficultyMessage = "This idea is quite challenging and may take a lot of time and resources to execute.";
+      }
+
+      ideaText.innerText = idea;
+      ideaDescription.innerText = difficultyMessage;
+      difficultyValueSpan.innerText = difficulty;
+    });
+  </script>
+</body>
+
+</html>
